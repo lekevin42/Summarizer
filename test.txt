@@ -1,0 +1,135 @@
+periods = []
+	count = 0
+	filtered_sentences= []
+	filtered_periods = []
+	record = []
+	for sent in sentences:
+		for s in sent:
+			if s == ".":
+				count += 1
+				
+		periods.append(count)
+				
+		#print(count)
+		count = 0
+		
+
+	for sent in sentences:
+		if periods[count] > 1:
+			#print(sent)
+			#print("\n")
+			filtered_sentences.append(sent)
+			filtered_periods.append(periods[count])
+			record.append(count)
+		
+		count += 1
+		
+	count = 0
+	index = 0
+	p_count = 0
+	#print(filtered_periods)
+	for sent in filtered_sentences:
+		while count < filtered_periods[p_count]:
+			index = sent.find(".", index + 1)
+			space = sent.rfind(" ", 0, index)
+			#print(index)
+			#print(space)
+			s = sent[space:index + 1]
+			count += 1
+		count = 0
+		p_count += 1
+		#print(len(sent))
+		#print(sent)
+		#print("\n")
+		#while count != len(sent) - 1:
+		#	if sent.find(".", count) != -1:
+		#	count = sent.find(".", count)
+			#print(count)
+				#space = sent.find(" ", count, 0)
+		#print(sent[count:space])
+		
+		
+		
+		periods = []
+	count = 0
+	for sent in text:
+		if sent == ".":	
+			periods.append(count)
+		count += 1
+	
+	for index in periods:
+		space = text.rfind(" ", 0, index)
+		s = text[space + 1:index + 1]
+		
+		if s == "Dr.":
+			print("TRUE")
+			text = text.replace("Dr.", "Doctor")
+			
+	print(text.encode('utf-8'))
+	
+	#print(periods)
+b'Companies can no longer market hand soaps containing several common antibacterial compounds, the Food and Drug Administration announced today.'
+b'\n'
+b"The FDA instituted the soap ban, which includes the widely used antibacterial chemicals triclosan and triclocarban, citing questions about the antibacterials' safety for long-term use. In addition, there is no evidence these chemicals add any benefit to people's heath beyond those of regular soap, the agency said."
+b'\n'
+b'"Consumers may think antibacterial washes are more effective at preventing the spread of germs, but we have no scientific evidence that they are any better than plain soap and water," Dr. Janet Woodcock, the director of the FDA\'s Center for Drug Evaluation and Research (CDER), said in a statementtoday (Sept. 2). "In fact, some data suggests that antibacterial ingredients may do more harm than good over the long term." [Top 7 Germs in Food That Make You Sick]'
+b'\n'
+b"The new ban applies to 19 chemicals, and only applies to soaps that are meant to be lathered and washed off with water. The ruling does not apply to antibacterial chemicals often used in clinical settings, such as hospitals or doctor's offices, and does not apply to antibacterial wipes or hand sanitizers."
+b'\n'
+b'The new rule comes as no surprise to manufacturers, who have already started eliminating these ingredients from their products. In 2013, the agency said that companies needed to provide evidence that the ingredients were effective and safe. At that time, recent evidence had suggested that long-term use of the soaps could fuel bacterial resistance or disrupt hormones in the body.'
+b'\n'
+b'In order to continue to market the chemicals, companies needed to provide the FDA with data showing that the products work better to combat infections than regular soap, and that the products are safe.'
+b'\n'
+b'But no companies provided data that was sufficiently convincing, the FDA said today. In fact, a 2015 study in the Journal of Antimicrobial Chemotherapy found that plain soap worked just as well as antibacterial soap containing triclosan against 20 different bacterial strains. Another study found that triclosan could fuel cancer in mice. The state of Minnesota banned products containing triclosan in 2014.'
+b'\n'
+b'The agency also said today that it is holding off on making a decision about three other antibacterial ingredients \xe2\x94\x80 benzalkonium chloride, benzethonium chloride and chloroxylenol (PCMX) \xe2\x94\x80 while they await safety and effectiveness data.'
+b'\n'
+b'While working up a lather with soap and water is the best way to prevent infection, alcohol-based hand sanitizers can also be very effective germ-killers, provided they contain at least 60 percent alcohol, are used to cover every surface of the hands, and are rubbed till they are dry, Dr. Rachel Orscheln, a pediatric infectious disease expert at Washington University School of Medicine in St. Louis, previously told Live Science.'
+b'\n'
+b'Original article on\xc2\xa0Live Science.'
+b'\n'
+b"Tia has interned at Science News, Wired.com, and the Milwaukee Journal Sentinel and has written for the Center for Investigative Reporting, Scientific American, and ScienceNow. She has a master's degree in bioengineering from the University of Washington and a graduate certificate in science writing from the University of California Santa Cruz."
+b'\n'
+b'Space.com'
+b'\n'
+b'All Rights Reserved.'
+b'\n'
+
+Companies can no longer market hand soaps containing several common antibacterial compounds, the Food and Drug Administration announced today.
+The FDA instituted the soap ban, which includes the widely used antibacterial chemicals triclosan and triclocarban, citing questions about the antibacterials' safety for long-term use.
+ In addition, there is no evidence these chemicals add any benefit to people's heath beyond those of regular soap, the agency said.
+ 2).
+ "In fact, some data suggests that antibacterial ingredients may do more harm than good over the long term.
+" [Top 7 Germs in Food That Make You Sick].
+The new ban applies to 19 chemicals, and only applies to soaps that are meant to be lathered and washed off with water.
+ The ruling does not apply to antibacterial chemicals often used in clinical settings, such as hospitals or doctor's offices, and does not apply to antibacterial wipes or hand sanitizers.
+The new rule comes as no surprise to manufacturers, who have already started eliminating these ingredients from their products.
+ In 2013, the agency said that companies needed to provide evidence that the ingredients were effective and safe.
+ At that time, recent evidence had suggested that long-term use of the soaps could fuel bacterial resistance or disrupt hormones in the body.
+In order to continue to market the chemicals, companies needed to provide the FDA with data showing that the products work better to combat infections than regular soap, and that the products are safe.
+But no companies provided data that was sufficiently convincing, the FDA said today.
+ In fact, a 2015 study in the Journal of Antimicrobial Chemotherapy found that plain soap worked just as well as antibacterial soap containing triclosan against 20 different bacterial strains.
+ Another study found that triclosan could fuel cancer in mice.
+ The state of Minnesota banned products containing triclosan in 2014.
+b'Companies can no longer market hand soaps containing several common antibacterial compounds, the Food and Drug Administration announced today..'
+b"The FDA instituted the soap ban, which includes the widely used antibacterial chemicals triclosan and triclocarban, citing questions about the antibacterials' safety for long-term use."
+b"In addition, there is no evidence these chemicals add any benefit to people's heath beyond those of regular soap, the agency said.."
+b' 2).'
+b'"In fact, some data suggests that antibacterial ingredients may do more harm than good over the long term." [Top 7 Germs in Food That Make You Sick].'
+b'The new ban applies to 19 chemicals, and only applies to soaps that are meant to be lathered and washed off with water.'
+b"The ruling does not apply to antibacterial chemicals often used in clinical settings, such as hospitals or doctor's offices, and does not apply to antibacterial wipes or hand sanitizers.."
+b'The new rule comes as no surprise to manufacturers, who have already started eliminating these ingredients from their products.'
+b'In 2013, the agency said that companies needed to provide evidence that the ingredients were effective and safe.'
+b'At that time, recent evidence had suggested that long-term use of the soaps could fuel bacterial resistance or disrupt hormones in the body..'
+b'In order to continue to market the chemicals, companies needed to provide the FDA with data showing that the products work better to combat infections than regular soap, and that the products are safe..'
+b'But no companies provided data that was sufficiently convincing, the FDA said today.'
+b'In fact, a 2015 study in the Journal of Antimicrobial Chemotherapy found that plain soap worked just as well as antibacterial soap containing triclosan against 20 different bacterial strains.'
+b'Another study found that triclosan could fuel cancer in mice.'
+b'The state of Minnesota banned products containing triclosan in 2014..'
+b'The agency also said today that it is holding off on making a decision about three other antibacterial ingredients \xe2\x94\x80 benzalkonium chloride, benzethonium chloride and chloroxylenol (PCMX) \xe2\x94\x80 while they await safety and effectiveness data..'
+b' Louis, previously told Live Science..'
+b'Original article on\xc2\xa0Live Science..'
+b'Tia has interned at Science News, Wired.com, and the Milwaukee Journal Sentinel and has written for the Center for Investigative Reporting, Scientific American, and ScienceNow.'
+b"She has a master's degree in bioengineering from the University of Washington and a graduate certificate in science writing from the University of California Santa Cruz.."
+b'Space.com.'
+b'All Rights Reserved..'
