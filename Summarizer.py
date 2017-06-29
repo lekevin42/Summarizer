@@ -19,6 +19,17 @@ class Summarizer:
 		self.keyword_limit = keyword_limit
 		self.sentence_limit = sentence_limit
 		self.sent_count = None
+		self.ignored_words = set([])
+		self.dict = {}
+
+
+	def fill_ignored(self):
+		"Generate a set to hold the ignored words such as 'The', 'a', etc"
+		with open("ignored_words/ignored_words.txt", "r") as ignored_words:
+			for ignored_word in ignored_words:
+				ignored_word = ignored_word.strip()
+				self.ignored_words.add(ignored_word)
+				self.ignored_words.add(ignored_word[0].lower() + ignored_word[1:])
 
 
 	def clean_text(self):
@@ -100,16 +111,7 @@ class Summarizer:
 				new_list.append(sent)
 
 		return new_list
-
-
-	def ignored_word(self, word):
-		with open("ignored_words/ignored_words.txt", "r") as ignored_words:
-			for ignored_word in ignored_words:
-				if word == ignored_word.strip():
-					return False
-
-		return True
-
+		
 
 	def grab_keywords(self, text):
 		"""
@@ -119,66 +121,31 @@ class Summarizer:
 			1) text - the text to gather keywords from.
 		"""
 
-		dict = {}
 		keywords = []
 		counter = 0
 
-		for sent in text:
-			split_text = sent.split()
-			for word in split_text:
-				#Check to see if the word is common and check if it is a proper noun.
-				if self.ignored_word(word) and word[0].isupper():
-					#if the word is in the dictionary, increment it
-					if word in dict:
-						dict[word] += 1
+		text = [word for sent in text for word in sent.split() if word not in self.ignored_words and word[0].isupper()]
 
-					#if the word is not in the dictionary, add it as an entry
-					else:
-						dict[word] = 0
+		for word in text:
+			#if the word is in the dictionary, increment it
+			if word in self.dict:
+				self.dict[word] += 1
 
-		#Check and remove duplicates from the dictionary
-		dict = self.check_duplicates(dict)
+			#if the word is not in the dictionary, add it as an entry
+			else:
+				self.dict[word] = 0
+
 
 		#Order the dictionary so the words with the most occurence is at the top
-		dict = OrderedDict(sorted(dict.items(), key=lambda t: t[1], reverse=True))
+		self.dict = OrderedDict(sorted(self.dict.items(), key=lambda t: t[1], reverse=True))
 
 		#Place these words into a list
-		for k, v in dict.items():
+		for k, v in self.dict.items():
 			if counter != self.keyword_limit:
 				keywords.append(k)
 				counter += 1
 
 		return keywords
-
-
-	def check_duplicates(self, dict):
-		"""
-		Function that will check and remove duplicates from a dictionary.
-
-		Parameters:
-			1) dict - the dictionary to remove duplicate words from
-		"""
-
-		count = 0
-		dup_list = []
-
-		#Create an ordered dictionary
-		dict = OrderedDict(sorted(dict.items(), key=lambda t: t[1], reverse=True))
-
-		#Place all of the words in the dictionary into a list
-		dup_list.append(list(dict.items())[0][0])
-
-		#Compare the dictionary and list and remove the duplicates
-		for k, v in dict.items():
-			for word in dup_list:
-				if word != k:
-					if k.find(word) != -1:
-						dict[k] = 0
-
-		#Sort the dictionary again
-		dict = OrderedDict(sorted(dict.items(), key=lambda t: t[1], reverse=True))
-
-		return dict
 
 
 	def grab_summary(self, text):
@@ -190,6 +157,7 @@ class Summarizer:
 		"""
 
 		summary = []
+
 
 		#Mark the end of paragraphs in order to group properly
 		text = self.mark_end_of_paragraphs(text)
@@ -394,6 +362,6 @@ class Summarizer:
 			1) summary - the summary to print to the text file
 		"""
 
-		with open("encoded.txt", "ab") as encoder:
+		with open("summary.txt", "ab") as f:
 			for sent in summary:
-				encoder.write(("\t" + sent + "\n").encode('utf-8'))
+				f.write(("\t" + sent + "\n").encode('utf-8'))

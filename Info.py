@@ -2,6 +2,7 @@ from Summarizer import *
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
+import sys
 
 class Info:
 	"""Class that handles the information for the article and is also responsible
@@ -26,6 +27,7 @@ class Info:
 		self.description = None
 		self.url = None
 
+
 	def run(self):
 		"""Driver function for this class."""
 
@@ -34,6 +36,8 @@ class Info:
 
 		#Print relevant info to text file
 		self.print_info()
+
+		self.summary.fill_ignored()
 
 		#Grab text from contents and pass to Summarizer module
 		text = self.summary.clean_text()
@@ -47,7 +51,6 @@ class Info:
 
 	def open_url(self):
 		"""Open the url and return the contents."""
-
 		try:
 			response = urlopen(self.url)
 			html = response.read()
@@ -60,9 +63,10 @@ class Info:
 
 		return soup
 
+
 	def gather_info(self):
 		"""
-		Parse the contents of the soup in order to obtain the title, author, description and url
+		Parse the contents of the soup in order to obtain the title and url
 		for the article.
 		"""
 
@@ -81,21 +85,28 @@ class Info:
 					self.url = url
 					break
 
+
 	def print_info(self):
 		"""Print out the relevant info where applicable."""
 
 		#Write all the information to a text file that can handle utf-8 to avoid encoding errors.
-		with open("encoded.txt", "wb") as encoder:
-			encoder.write(("Title: {}\n".format(self.title)).encode('utf-8'))
-			encoder.write(("Url: {}\n".format(self.url)).encode('utf-8'))
+		with open("summary.txt", "wb") as f:
+			f.write(("Title: {}\n".format(self.title)).encode('utf-8'))
+			f.write(("Url: {}\n".format(self.url)).encode('utf-8'))
+
 
 def main():
 	"""Driver function to run the program."""
-	url = "https://en.wikipedia.org/wiki/Ant"
+	if len(sys.argv) != 2:
+		print("Please provide a word to query!")
+		exit(1)
 
+	test = "tseting"
+
+	url = sys.argv[1]
+	url = "https://en.wikipedia.org/wiki/" + url[0].upper() + url[1:]
 	info = Info(url, 25, 0.65)
 	info.run()
-
 
 if __name__ == "__main__":
 	main()
