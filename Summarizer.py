@@ -74,7 +74,8 @@ class Summarizer:
 		return text
 
 
-	def add_spaces(self, text):
+	@staticmethod
+	def add_spaces(text):
 		"""
 		Function used to re-add spaces to the text since it was removed by splitlines.
 
@@ -96,7 +97,8 @@ class Summarizer:
 		return spaced_text
 
 
-	def shorten_text(self, text):
+	@staticmethod
+	def shorten_text(text):
 		"""
 		Function used to remove short sentences since they are either invalid or not important.
 
@@ -111,7 +113,7 @@ class Summarizer:
 				new_list.append(sent)
 
 		return new_list
-		
+
 
 	def grab_keywords(self, text):
 		"""
@@ -183,7 +185,8 @@ class Summarizer:
 		return summary
 
 
-	def group_summary(self, summary):
+	@staticmethod
+	def group_summary(summary):
 		"""
 		Function that groups the sentences together into paragraphs.
 
@@ -253,8 +256,8 @@ class Summarizer:
 
 		return finalized_sentences
 
-
-	def replace_text(self, text):
+	@staticmethod
+	def replace_text(text):
 		"""
 		Function used to replace words such as Mrs., Dr. to avoid confusing program.
 
